@@ -95,52 +95,8 @@ So the “structure” that tests a platform is: **Features (by flow)** + **Step
 
 ---
 
-## 5. Visual Flow Prompt (for a diagram)
 
-You can paste the following into a diagramming tool (e.g. Mermaid, Draw.io, or an AI image/diagram generator) to get a visual of how the framework fits together.
-
-**Purpose:** One diagram that a beginner QA engineer can use to see (1) the order in which things run, and (2) which parts of the project depend on which.
-
----
-
-**PROMPT — copy everything below this line:**
-
----
-
-Draw a diagram for a **Selenium + Cucumber BDD test framework**. Use two panels or two clear sections.
-
-**Panel 1 — Execution order (top to bottom, one scenario):**
-
-1. **Start:** "Run CucumberRunner" (JUnit/Maven).
-2. **Load:** "Cucumber reads all .feature files" from the features folder.
-3. **Before scenario:** "Hooks @Before" runs once per scenario:
-   - "TestBase.setUp()" → start browser (Chrome).
-   - "ExtentReports" → create one test entry for this scenario.
-4. **Run scenario:** For each step in the scenario:
-   - Cucumber finds the matching step definition (e.g. HomeSteps) by the step text.
-   - The step definition calls a Page object (e.g. HomePage) and uses the driver from TestBase.
-   - The Page object performs clicks, inputs, and checks in the browser.
-5. **After scenario:** "Hooks @After" runs:
-   - If the scenario failed → take screenshot and attach to report.
-   - "TestBase.tearDown()" → close browser.
-   - ExtentReports flush (write to HTML).
-
-Use **rectangles** for each step and **downward arrows** between them. Label arrows as "then" or "next" so the order is obvious.
-
-**Panel 2 — How the code is structured (who uses whom):**
-
-- **Feature files** (.feature): contain the scenarios in Gherkin (Given/When/Then). They do not call code directly.
-- **Step definitions** (e.g. HomeSteps): map each Gherkin step to Java code. They **use** Page objects and **use** the driver from TestBase.
-- **Page objects** (e.g. HomePage): one class per screen; they hold locators and actions (click, type, get text). They **use** the driver (from TestBase) to talk to the browser.
-- **TestBase**: holds the shared WebDriver, wait, and screenshot logic. Step definitions and Page objects **get the driver** from here.
-
-Draw four boxes: "Feature files" → "Step definitions" → "Page objects". Add a separate box "TestBase (driver, wait, screenshots)" and draw arrows from both "Step definitions" and "Page objects" to "TestBase" to show they depend on it. Use a **horizontal flow** (left to right) for Feature → Steps → Pages, and arrows **to** TestBase.
-
-**Style:** Simple shapes, short labels, no jargon beyond the names above. The diagram should answer: "When I run a test, what runs first?" and "Which Java class uses which?"
-
----
-
-## 6. Mermaid diagram (ready to paste)
+## 5. Mermaid diagram (ready to paste)
 
 You can paste this into any Markdown viewer or Mermaid-supported tool to see the flow:
 
