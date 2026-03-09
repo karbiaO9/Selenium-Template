@@ -1,5 +1,4 @@
-# Selenium-Template
-# QA Test Framework — Documentation for Beginner QA Engineers
+# QA Test Framework - Selenium-Template
 
 ## 1. What Is This Project?
 
